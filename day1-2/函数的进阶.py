@@ -11,16 +11,16 @@ x,y,z=test()
 #1.位置传参
 
 #2.关键字参数："键=值" 顺序可以不同
-def test(name,age):
+def test1(name,age):
     return None
 
-test(age=20,name="代")
+test1(age=20,name="代")
 
 #3.省参数（默认参数）：在函数的最后，   当没有传递相应的参数时，就会使用默认参数的值
-def test(name,age,gender="男"):
+def test2(name,age,gender="男"):
     return None
 
-test("tom",20)  #这里的缺了参数，所以默认是男
+test2("tom",20)  #这里的缺了参数，所以默认是男
 
 #---------------------------------------------------------------------------------
 #三、不定长参数（可变参数） 用于不确定有多少个参数        两种：位置传递和关键字传递
@@ -36,7 +36,7 @@ demo(1, 2, 3, name='Alice', age=25)
 
 #---------------------------------------------------------------------------------
 #四、函数作为参数传递
-def test(compute):
+def test3(compute):
     result=compute(1,2)
     print(result)
     
@@ -45,11 +45,11 @@ def compute(x,y):
 
 #---------------------------------------------------------------------------------
 #五、lambda 匿名函数    没有函数名 只有一个执行语句
-def test(compute):
+def test4(compute):
     result=compute(1,2)
     print(result)
 
-test(lambda x,y: x+y)
+test4(lambda x,y: x+y)
 
 
  #---------------------------------------------------------------------------------
@@ -60,4 +60,4 @@ val:int=10
 
 #2.函数
 def func(data:int|str|float)   ->int:
-    return data
+    return int(data)

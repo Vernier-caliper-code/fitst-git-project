@@ -33,7 +33,7 @@ print(p1.__age)
 class student:
     score=None
 
-class student2:
+class student4:
     score=None
     
 #单继承
