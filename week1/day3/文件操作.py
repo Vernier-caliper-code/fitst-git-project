@@ -32,3 +32,7 @@ with open('dai.txt', 'r', encoding='utf-8') as f:
     lines = f.readlines()   # 返回列表，每行是一个元素（包含换行符）
     for line in lines:
         print(line.strip()) # strip() 去掉换行符
+
+
+
+

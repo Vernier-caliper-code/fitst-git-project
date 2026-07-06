@@ -28,7 +28,7 @@ str="hello"
 count=str.count("l")
 length=len(str)
 ind=str.index("llo")
-str2=str.replace("he","dai")
+str2=str.replace("he","dai")  #这里是形成新的字符串，因为string是不支持修改的
 
 #很少用的
 str.split(" ")

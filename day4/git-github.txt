@@ -1,7 +1,0 @@
-学习使用git，github 
-
-
-学习使用git与cc的基础用法
-
-
-将项目传到github，将GitHub的仓库克隆到本地
