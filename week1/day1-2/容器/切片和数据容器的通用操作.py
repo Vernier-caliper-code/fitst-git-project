@@ -38,3 +38,16 @@ print(sorted(lis))
 
 print(max(lis))
 
+
+#对于列表和元组
+#join() 是 Python 中字符串的方法，用于将可迭代对象（如列表、元组）中的元素连接成一个字符串
+
+# 用空格连接
+" ".join(["hello", "world"])        # "hello world"
+
+",".join(["a", "b", "c"])            # "a,b,c"
+
+# 用空字符串连接（拼接）
+"".join(["py", "thon"])              # "python"
+
+"-".join(["2026", "07", "09"])       # "2026-07-09"

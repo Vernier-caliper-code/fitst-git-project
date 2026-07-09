@@ -1,12 +1,3 @@
-#1.这是我的第一个python程序
-c=3
-"""
-2.
-这是多行注释
-
-
-"""
-
 #3.
 day="monday"
 print("今天星期","day","哦")
@@ -91,7 +82,7 @@ for z in range(5,10,2):  #这里的参数依次是start  end   步长
     print(z)    #输出5 7 9   
 
 
-def func(a):
+def func(a:int) -> bool:
     return True
 
 

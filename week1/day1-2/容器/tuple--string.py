@@ -30,7 +30,12 @@ length=len(str)
 ind=str.index("llo")
 str2=str.replace("he","dai")  #这里是形成新的字符串，因为string是不支持修改的
 
-#很少用的
-str.split(" ")
-str.strip()
+#分隔符
+str23="dajia hao wo shi dai xue lin"
+mylist=str23.split(" ")
+print(mylist)  #分隔成列表
 
+
+#格式控制符
+mystr=" da jia  hao \n"
+print(mystr.strip())

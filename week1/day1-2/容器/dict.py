@@ -43,4 +43,9 @@ print("grape" in count)    # False（键不存在）
 print(3 in count)          # False（检查的是键，不是值！）
 
 
+#字典合并
+dict1 = {"a": 1, "b": 2}
+dict2 = {"b": 3, "c": 4}
+dict1 |= dict2
 
+print(dict1)
