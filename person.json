@@ -1,0 +1,13 @@
+{
+    "address": {
+        "city": "Shenzhen",
+        "province": "Guangdong"
+    },
+    "age": 20,
+    "gender": "male",
+    "name": "json",
+    "tel": [
+        "123456789",
+        "987654321"
+    ]
+}
