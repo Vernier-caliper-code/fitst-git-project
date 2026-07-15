@@ -8,7 +8,7 @@
 # d1 |= d2 是 Python 3.9 的新语法，之前用 d1.update(d2)
 def merge_dicts(*dicts: dict) -> dict:
     """合并多个字典，后出现的键覆盖前面的"""
-    result = {}
+    result: dict = {}
     for d in dicts:
         result |= d  # Python 3.9+: |= 运算符合并
     return result
