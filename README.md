@@ -5,7 +5,7 @@
 ## 环境
 
 - Python 3.12.7
-- 依赖标准库为主（`json`、`csv`、`os` 等），无第三方依赖
+- Week1 依赖标准库（`json`、`csv`、`os` 等）；Week2 引入第三方库（`numpy`、`pandas`、`matplotlib`、`seaborn`、`requests`、`pydantic`）
 - 使用 `.venv` 虚拟环境（已在 `.gitignore` 中忽略）
 
 ```bash
@@ -43,6 +43,26 @@ week1/
 └── 加强点.md                   易忘知识点清单
 ```
 
+```
+week2/
+├── numpy/                    NumPy 数组基础
+│   └── numpy_basics.ipynb     ndarray 创建、索引切片、广播、聚合
+├── pandas/                   Pandas 数据处理
+│   ├── pandas_basics.ipynb     DataFrame 基础操作
+│   └── pandas_practice.ipynb   Titanic 数据清洗与分析实战
+├── matplotlib&&seaborn/      数据可视化
+│   ├── matplotlib_basics.py    折线/柱状/散点/饼图、子图、高清保存
+│   └── seaborn_basics.py       热力图 / 箱线图 / pairplot
+├── HTTP基础/                  HTTP 请求与 API
+│   ├── get.py                  GET 请求与参数拼接
+│   ├── post.py                 POST 请求与 JSON 数据
+│   └── http_practice.py        GitHub API 仓库数据采集
+├── pydantic/                 数据校验（Pydantic v2）
+│   ├── pydantic_basics.py      BaseModel、Field、field_validator
+│   └── pydantic-practice.py    JSON → 模型校验 → 错误格式化
+└── 加强点-week2.md            NumPy 易忘点（布尔索引、axis）
+```
+
 ## 各阶段要点
 
 | 阶段 | 内容 |
@@ -51,6 +71,17 @@ week1/
 | **Day 3** | `map`/`filter`/列表推导式、闭包、装饰器、生成器、CSV 处理、异常处理 |
 | **Day 4-5** | 包管理（pip / venv / uv）、Git 与 GitHub 基础工作流 |
 | **Day 6** | JSON 序列化与持久化、命令行 TODO 项目实战 |
+
+### Week2 各阶段要点
+
+| 模块 | 内容 |
+| :--- | :--- |
+| **NumPy** | ndarray 创建与属性、索引切片、布尔索引、广播机制、聚合操作（axis）、reshape/flatten |
+| **Pandas** | DataFrame 加载/查询/排序、缺失值处理、groupby、apply、merge；Titanic 实战 |
+| **Matplotlib** | 折线图、柱状图、散点图、饼图、子图布局、高分辨率保存 |
+| **Seaborn** | 热力图（相关性）、箱线图（异常值）、pairplot（特征关系） |
+| **HTTP 基础** | `requests` GET/POST、参数拼接、JSON 响应解析、GitHub API 实战 |
+| **Pydantic** | `BaseModel`、`Field` 约束、`field_validator` 自定义验证、JSON → 模型校验 |
 
 ### Day 1-2 练习题
 
@@ -79,3 +110,16 @@ python week1/day6/todo.py
 ```
 
 运行后按菜单提示操作（`1` 添加 / `2` 列出 / `3` 标记完成 / `4` 删除 / `q` 退出并保存）。
+
+## 数据校验：Pydantic
+
+`week2/pydantic/` 演示了「从 JSON 到类型安全数据」的完整校验流程：
+
+- **`pydantic_basics.py`** — `Person` 模型，展示 `Field(frozen=True, lt=200)` 约束、`default_factory` 避免列表共享、`field_validator` 自定义校验手机号
+- **`pydantic-practice.py`** — `User` 模型 + `parse_and_validate()` 将 JSON 字符串解析为类型安全对象，`_format_errors()` 把 `ValidationError` 格式化为可读错误报告
+
+```bash
+python week2/pydantic/pydantic-practice.py
+```
+
+正确数据通过校验打印详情；错误数据逐字段报告失败原因，一次返回所有错误。
