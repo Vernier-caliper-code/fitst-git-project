@@ -8,3 +8,5 @@ dist/
 build/
 .env
 .vscode/
+.claude/
+.ipynb_checkpoints/
