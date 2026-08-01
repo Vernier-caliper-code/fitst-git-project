@@ -52,7 +52,7 @@ params1={"id":1001}
 params2={"id":"1001,1002"}
 params3={"id":1001,"kw":"北京"}
 # 1.获取请求
-response = requests.get(url,params=params1)   #这里的params自动拼接到url上，网站就是"http://www.baidu.com？id=1001"
+response = requests.get(url,params=params1)   #这里的params（查询参数）自动拼接到url上，网站就是"http://www.baidu.com？id=1001"
 # response=requests.get(url,params=params2)  #
 # response=requests.get(url,params=params3) 
 

@@ -23,5 +23,3 @@ def fizzbuzz(n: int) -> None:
 
 if __name__ == "__main__":
     fizzbuzz(30)
-
-
