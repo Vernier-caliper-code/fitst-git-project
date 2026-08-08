@@ -1,0 +1,26 @@
+write_tetris:
+  description: >
+    编写一个完整的CLI终端俄罗斯方块游戏，要求：
+    - 使用Python标准库中的curses库实现终端实时渲染
+    - 实现7种标准方块（I/O/T/S/Z/J/L）的旋转和移动
+    - 实现消行逻辑和分数系统
+    - 游戏结束条件：方块堆到顶部
+    - 支持键盘操作：左右移动、旋转、加速下落
+    - 终端需要实时刷新显示
+    只输出纯Python代码，不要额外解释。
+  expected_output: "完整的、可直接运行的Python俄罗斯方块代码"
+  agent: tetris_writer
+
+review_and_fix:
+  description: >
+    审查下面代码中的所有问题并直接修复。
+    检查重点：
+    - 运行时错误（语法错误、类型错误、索引越界等）
+    - 游戏逻辑错误（方块旋转、碰撞检测、消行逻辑）
+    - 边界条件（墙壁碰撞、底部堆叠、旋转后越界）
+    - 代码质量（未使用的变量、可简化的逻辑）
+    直接输出修复后的完整代码，不要输出diff或解释。
+  expected_output: "修复bug后的完整Python俄罗斯方块代码"
+  agent: code_reviewer
+  context_from:
+    - write_tetris

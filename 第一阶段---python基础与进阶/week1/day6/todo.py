@@ -52,7 +52,7 @@ def save_tasks(tasks):
 def generate_id(tasks):
     """生成新任务的 id：有任务就取最大 id + 1，没有就从 1 开始"""
     if not tasks:
-        return 1
+        return 1 
     return max(t["id"] for t in tasks) + 1
 
 

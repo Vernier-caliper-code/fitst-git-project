@@ -13,8 +13,8 @@
 python -m venv .venv
 source .venv/Scripts/activate   # Windows (Git Bash)
 
-# 运行任意练习脚本
-python week1/day6/todo.py
+# 运行任意练习脚本（脚本用相对路径读写数据文件，需 cd 到脚本所在目录）
+cd week1/day6 && python todo.py
 ```
 
 ## 目录结构
@@ -32,13 +32,17 @@ week1/
 │   ├── map-filter和列表推导式区别.py
 │   ├── 闭包和装饰器和生成器/    闭包、装饰器、生成器(yield)
 │   └── 处理csv文件/            CSV 读写、文件操作、异常处理
+│       ├── data.csv            练习输入数据
+│       └── output.csv          处理结果输出
 │
 ├── day4--day5/                 工具与环境
 │   └── 工具和环境的进阶.md      pip / venv / uv、Git 与 GitHub
 │
 ├── day6/                       JSON 与项目实战
 │   ├── json使用.py             JSON 序列化 / 反序列化
-│   └── todo.py                 命令行 TODO 管理器（小项目）
+│   ├── person.json             json 使用示例数据文件
+│   ├── todo.py                 命令行 TODO 管理器（小项目）
+│   └── todo_data.json          TODO 数据持久化文件
 │
 └── 加强点.md                   易忘知识点清单
 ```
@@ -52,7 +56,11 @@ week2/
 │   └── pandas_practice.ipynb   Titanic 数据清洗与分析实战
 ├── matplotlib&&seaborn/      数据可视化
 │   ├── matplotlib_basics.py    折线/柱状/散点/饼图、子图、高清保存
-│   └── seaborn_basics.py       热力图 / 箱线图 / pairplot
+│   ├── plot_demo.png           matplotlib 输出示例图
+│   ├── seaborn_basics.py       热力图 / 箱线图 / pairplot
+│   ├── seaborn_heatmap.png     heatmap 输出
+│   ├── seaborn_boxplot.png     boxplot 输出
+│   └── seaborn_pairplot.png    pairplot 输出
 ├── HTTP基础/                  HTTP 请求与 API
 │   ├── get.py                  GET 请求与参数拼接
 │   ├── post.py                 POST 请求与 JSON 数据
@@ -106,7 +114,7 @@ week2/
 支持功能：添加任务、列出任务、标记完成、删除任务，数据以 JSON 文件（`todo_data.json`）持久化。
 
 ```bash
-python week1/day6/todo.py
+cd week1/day6 && python todo.py
 ```
 
 运行后按菜单提示操作（`1` 添加 / `2` 列出 / `3` 标记完成 / `4` 删除 / `q` 退出并保存）。
