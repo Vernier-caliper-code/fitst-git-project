@@ -18,9 +18,8 @@ from crewai import LLM, Agent, Crew, Task
 from crewai.crews.crew_output import CrewOutput
 from crewai.tools import BaseTool
 from dotenv import load_dotenv
-from pydantic import BaseModel, Field
-
 from news_service import fetch_top_stories
+from pydantic import BaseModel, Field
 
 # ---------------------------------------------------------------------------
 # 1. 加载环境变量，配置 LLM（OpenAI 兼容端点）

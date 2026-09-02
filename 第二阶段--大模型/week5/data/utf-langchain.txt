@@ -1,0 +1,13 @@
+LangChain 是一个用于开发大语言模型（LLM）应用的开源框架，由 Harrison Chase 于 2022 年 10 月发布。它用 Python 和 JavaScript 两种语言实现，目标是把 LLM 与外部数据源、计算工具连接起来，构建端到端的应用。
+
+LangChain 的核心组件包括以下六部分：
+1. Models（模型）：统一封装对各类 LLM 的调用接口，支持 OpenAI、Anthropic、DeepSeek 等多家供应商。
+2. Prompts（提示词）：提供 PromptTemplate 等工具来管理和复用提示词模板。
+3. Chains（链）：把多个组件按顺序串联起来，例如「提示词 → 模型 → 输出解析」组合成一条调用链。
+4. Agents（智能体）：让 LLM 自主决定调用哪些工具来完成复杂任务，核心是 ReAct 推理范式。
+5. Memory（记忆）：在多轮对话中保存上下文，使模型具备短期或长期记忆能力。
+6. Indexes / Retrievers（索引与检索）：对接文档加载、切分、向量化与检索，是 RAG 应用的基础。
+
+RAG（Retrieval-Augmented Generation，检索增强生成）是一种结合检索与生成的方法。它的基本流程是：先用文档加载器（如 TextLoader）读取外部文档，再用文本切分器（如 RecursiveCharacterTextSplitter）把长文档切成小块，接着用 embedding 模型把每个块转成向量并存入向量数据库（如 Chroma、FAISS），最后在用户提问时检索最相关的块作为上下文，喂给 LLM 生成回答。RAG 的优势是能让模型基于私有知识回答问题，同时降低幻觉。
+
+UTF-8 是一种变长字符编码，能够表示 Unicode 标准中的任意字符，是互联网上最常用的编码方式。在处理中文文本时，必须使用 UTF-8 编码读取文件，否则会出现乱码（如「锟斤拷」「烫烫烫」）。LangChain 的 TextLoader 默认使用系统编码，因此加载中文文件时建议显式指定 encoding="utf-8"。

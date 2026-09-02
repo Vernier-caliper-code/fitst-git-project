@@ -19,7 +19,6 @@ from crewai.crews.crew_output import CrewOutput
 from crewai.tools import BaseTool
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
-
 from weather_service import query_weather
 
 # ---------------------------------------------------------------------------

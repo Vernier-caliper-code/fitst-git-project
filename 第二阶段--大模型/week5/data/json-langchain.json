@@ -1,0 +1,47 @@
+{
+  "framework": "LangChain",
+  "version": "0.3.x",
+  "concepts": [
+    {
+      "id": 1,
+      "name": "ChatModel",
+      "description": "语言模型的封装接口，提供对话与补全能力",
+      "example": "ChatOpenAI(model='gpt-4', temperature=0.7)"
+    },
+    {
+      "id": 2,
+      "name": "PromptTemplate",
+      "description": "用于构建动态提示词的模板，支持变量插值",
+      "example": "PromptTemplate.from_template('用一句话解释{topic}')"
+    },
+    {
+      "id": 3,
+      "name": "LLMChain",
+      "description": "将 PromptTemplate 与 ChatModel 串联成一个可执行链",
+      "example": "chain = prompt | model | output_parser"
+    },
+    {
+      "id": 4,
+      "name": "Memory",
+      "description": "为对话保留上下文历史，支撑多轮交互",
+      "example": "ConversationBufferMemory(memory_key='history')"
+    },
+    {
+      "id": 5,
+      "name": "Retriever",
+      "description": "从向量数据库检索与查询相关的文档片段",
+      "example": "vectorstore.as_retriever(search_kwargs={'k': 4})"
+    },
+    {
+      "id": 6,
+      "name": "Agent",
+      "description": "基于工具调用实现自主决策的执行体",
+      "example": "create_tool_calling_agent(llm, tools, prompt)"
+    }
+  ],
+  "defaults": {
+    "temperature": 0.7,
+    "max_tokens": 1024,
+    "streaming": false
+  }
+}

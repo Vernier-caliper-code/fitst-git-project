@@ -1,0 +1,7 @@
+id,question,answer
+1,LangChain 是什么？,LangChain 是一个用于开发大语言模型（LLM）应用的开源框架，由 Harrison Chase 于 2022 年 10 月发布，用 Python 和 JavaScript 两种语言实现。
+2,LangChain 的核心组件有哪些？,LangChain 包含六大核心组件：Models（模型）、Prompts（提示词）、Chains（链）、Agents（智能体）、Memory（记忆）和 Indexes/Retrievers（索引与检索）。
+3,什么是 RAG？,RAG（检索增强生成）是一种结合检索与生成的方法，先用文档加载器读取外部文档，再切分、向量化并存入向量数据库，最后检索相关块喂给 LLM 生成回答，能降低幻觉并基于私有知识回答问题。
+4,TextLoader 的作用是什么？,TextLoader 是 LangChain 的文档加载器，用于读取纯文本文件并返回 Document 对象，加载中文文件时建议显式指定 encoding="utf-8" 避免乱码。
+5,RecursiveCharacterTextSplitter 有什么用？,它是 LangChain 的文本切分器，按字符递归地把长文档切成小块，便于后续向量化与检索。
+6,向量数据库有哪些常见选择？,常见的向量数据库包括 Chroma、FAISS、Pinecone、Weaviate 等，用于存储文本的 embedding 向量并支持相似度检索。
