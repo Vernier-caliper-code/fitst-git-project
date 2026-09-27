@@ -1,6 +1,6 @@
 from config.db_config import get_db
 from crud import news
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 router=APIRouter(prefix="/api/news",tags=['news'])
@@ -23,3 +23,26 @@ async def get_categories(skip: int = 0, limit: int = 100, db: AsyncSession = Dep
         "data": categories
     }   
 
+
+@router.get("/list")
+async def get_news_list(
+    category_id: int = Query(default=..., alias="categoryId"),
+    page: int = 1,
+    page_size: int = Query(default=10, alias="pageSize", le=100),
+    db: AsyncSession = Depends(get_db)
+):
+
+    offset = (page - 1) * page_size
+    news_list = await news.get_news_list(db, category_id, offset, page_size)
+    total=await news.get_news_count(db,category_id)
+    has_more=(offset+len(news_list) < total)
+   #思路: 处理分页规则  ->查询新闻列表 ->计算总量 -> 计算是否还有更多
+    return {    
+        "code": 200,
+        "message": "获取新闻列表成功",
+        "data": {
+            "list": news_list,
+            "total": total,
+            "hasMore": has_more
+        }
+    }
