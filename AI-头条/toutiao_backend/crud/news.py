@@ -4,9 +4,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 
 async def get_categories(db: AsyncSession, skip: int = 0, limit: int = 100):
-    stmt = select(Category).offset(skip).limit(limit)
-    result = await db.execute(stmt)
-    return result.scalars().all()
+    stmt = select(Category).offset(skip).limit(limit)  #定义搜索方式
+    result = await db.execute(stmt)  #操作数据库
+    return result.scalars().all()   #转换成python对象列表
 
 
 async def get_news_list(db: AsyncSession, category_id: int, skip: int = 0, limit: int = 10):

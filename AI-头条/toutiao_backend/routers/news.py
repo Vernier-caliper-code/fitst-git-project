@@ -80,4 +80,3 @@ async def get_news_detail(news_id: int = Query(default=..., alias="id"), db: Asy
             "relatedNews": related_news
         }
     }
-p
