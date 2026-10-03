@@ -1,11 +1,12 @@
-from config.db_config import get_db
+from config.db_conf import get_db
 from crud import users
 from fastapi import APIRouter, Depends, HTTPException
 from schemas.users import UserAuthResponse, UserInfoResponse, UserRequest
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 from utils.response import success_response
-
+from utils.auth import get_current_user
+from models.users import User
 router = APIRouter(prefix="/api/user", tags=["users"])
 
 
@@ -53,3 +54,11 @@ async def login(user_data:UserRequest,db: AsyncSession = Depends(get_db)):
         userInfo=UserInfoResponse.model_validate(user),
     )
     return success_response(message="登录成功",data=response_data)
+
+
+
+
+#查Token查用户 -> 封装crud -> 功能整合成一个工具函数 —>路由读入使用: 依赖注入
+@router.get("/info")
+async def get_user_info(user: User = Depends(get_current_user)):
+     return success_response(message="获取用户信息成功",data=UserInfoResponse.model_validate(user))

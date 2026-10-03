@@ -1,4 +1,4 @@
-from config.db_config import get_db
+from config.db_conf import get_db
 from crud import news
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
