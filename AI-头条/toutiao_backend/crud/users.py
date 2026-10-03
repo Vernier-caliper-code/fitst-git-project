@@ -1,12 +1,12 @@
-from datetime import datetime, timedelta
 import uuid
+from datetime import datetime, timedelta
 
-from models.users import User
+from models.users import User, UserToken
 from schemas.users import UserRequest
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from utils import security
-from models.users import UserToken
+
 
 # 根据用户名查询数据库
 async def get_user_by_username(db: AsyncSession, username: str):
@@ -45,3 +45,13 @@ async def create_token(db: AsyncSession, user_id: int):
         await db.commit()
 
     return token
+
+
+
+async def authenticate_user(db: AsyncSession, username: str, password: str):
+    user = await get_user_by_username(db, username)
+    if not user:
+        return None
+    if not security.verify_password(password, user.password):
+        return None
+    return user
