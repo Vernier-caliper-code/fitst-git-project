@@ -35,3 +35,8 @@ desktop.ini
 # 向量库/RAG 产物
 chroma_db/
 *.faiss
+
+# Node/Vite 前端
+node_modules/
+.env.local
+.env.*.local
