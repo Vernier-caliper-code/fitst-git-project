@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 from utils.auth import get_current_user
 from utils.response import success_response
-
+from models.users import UserUpdateRequest
 router = APIRouter(prefix="/api/user", tags=["users"])
 
 
@@ -63,3 +63,12 @@ async def login(user_data:UserRequest,db: AsyncSession = Depends(get_db)):
 @router.get("/info")
 async def get_user_info(user: User = Depends(get_current_user)):
      return success_response(message="获取用户信息成功",data=UserInfoResponse.model_validate(user))
+
+
+# 修改用户信息：验证Token -> 更新（用户输入数据 put 提交 -> 请求体参数 -> 定义Pydantic模型类） -> 响应结果
+# 参数：用户输入的 + 验证Token的 + db（调用更新的方法）
+@router.put("/update")
+async def update_user_info(user_data: UserUpdateRequest, user: User = Depends(get_current_user),
+                           db: AsyncSession = Depends(get_db)):
+    user = await users.update_user(db, user.username, user_data)
+    return success_response(message="更新用户信息成功", data=UserInfoResponse.model_validate(user))

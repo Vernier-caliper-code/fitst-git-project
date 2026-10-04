@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from pydantic import BaseModel
 from sqlalchemy import DateTime, Enum, ForeignKey, Index, Integer, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
@@ -57,3 +58,15 @@ class UserToken(Base):
 
     def __repr__(self):
         return f"<UserToken(id={self.id}, user_id={self.user_id}, token='{self.token}')>"
+
+
+
+#更新用户信息的模型类
+class UserUpdateRequest(BaseModel):
+    nickname:str =None
+    avatar:str =None
+    gender:str =None
+    bio:str =None
+    phone:str =None
+
+    
