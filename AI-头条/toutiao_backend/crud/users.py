@@ -2,9 +2,8 @@ import uuid
 from datetime import datetime, timedelta
 
 from fastapi import HTTPException
-
-from models.users import User, UserToken, UserUpdateRequest
-from schemas.users import UserRequest
+from models.users import User, UserToken
+from schemas.users import UserRequest, UserUpdateRequest
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from utils import security

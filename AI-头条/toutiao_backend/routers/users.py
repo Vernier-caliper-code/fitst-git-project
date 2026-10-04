@@ -2,12 +2,17 @@ from config.db_conf import get_db
 from crud import users
 from fastapi import APIRouter, Depends, HTTPException
 from models.users import User
-from schemas.users import UserAuthResponse, UserInfoResponse, UserRequest
+from schemas.users import (
+    UserAuthResponse,
+    UserInfoResponse,
+    UserRequest,
+    UserUpdateRequest,
+)
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 from utils.auth import get_current_user
 from utils.response import success_response
-from models.users import UserUpdateRequest
+
 router = APIRouter(prefix="/api/user", tags=["users"])
 
 

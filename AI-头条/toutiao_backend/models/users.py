@@ -60,13 +60,3 @@ class UserToken(Base):
         return f"<UserToken(id={self.id}, user_id={self.user_id}, token='{self.token}')>"
 
 
-
-#更新用户信息的模型类
-class UserUpdateRequest(BaseModel):
-    nickname:str =None
-    avatar:str =None
-    gender:str =None
-    bio:str =None
-    phone:str =None
-
-    
