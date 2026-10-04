@@ -47,5 +47,7 @@ class UserUpdateRequest(BaseModel):
 
     
 
-
+class UserChangePasswordRequest(BaseModel):
+    old_password: str = Field(..., alias="oldPassword", description="旧密码")
+    new_password: str = Field(..., min_length=6, alias="newPassword", description="新密码")
 
