@@ -22,7 +22,7 @@
       </van-cell-group>
       
       <van-cell-group inset class="info-group">
-        <van-cell title="用户名" :value="userInfo.username || 'admin'" />
+        <van-cell title="用户名" :value="userInfo?.username || 'admin'" />
         <van-cell title="账号ID" :value="`ID: heima-${userId || 'N/A'}`" />
         <van-cell title="个人简介" :value="userBio || '暂无简介'" is-link @click="showBioDialog" />
       </van-cell-group>

@@ -13,7 +13,8 @@ export const useUserStore = defineStore('user', {
   getters: {
     getUserInfo: (state) => state.userInfo,
     getToken: (state) => state.token,
-    getLoginStatus: (state) => state.isLogin,
+    // 以 userInfo 为准，避免持久化状态不一致时仍被判定为已登录
+    getLoginStatus: (state) => state.isLogin && !!state.userInfo,
     getUserBio: (state) => state.userInfo?.bio || state.userBio
   },
   
