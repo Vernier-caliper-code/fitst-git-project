@@ -27,3 +27,13 @@ async def add_news_favorite(
     await db.commit()
     await db.refresh(favorite)
     return favorite
+
+async def remove_news_favorite(
+        db: AsyncSession,
+        user_id: int,
+        news_id: int
+):
+    stmt = delete(Favorite).where(Favorite.user_id == user_id, Favorite.news_id == news_id)
+    result=await db.execute(stmt)
+    await db.commit()
+    return result.rowcount>0
