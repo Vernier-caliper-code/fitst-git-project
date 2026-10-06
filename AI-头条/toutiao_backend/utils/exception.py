@@ -15,11 +15,7 @@ async def http_exception_handler(request: Request, exc: HTTPException):
     # HTTPException 通常是业务逻辑主动抛出的，data 保持 None
     return JSONResponse(
         status_code=exc.status_code,
-        content={
-            "code": exc.status_code,
-            "message": exc.detail,
-            "data": None
-        }
+        content={"code": exc.status_code, "message": exc.detail, "data": None},
     )
 
 
@@ -41,16 +37,12 @@ async def integrity_error_handler(request: Request, exc: IntegrityError):
         error_data = {
             "error_type": "IntegrityError",
             "error_detail": error_msg,
-            "path": str(request.url)
+            "path": str(request.url),
         }
 
     return JSONResponse(
         status_code=status.HTTP_400_BAD_REQUEST,
-        content={
-            "code": 400,
-            "message": detail,
-            "data": error_data
-        }
+        content={"code": 400, "message": detail, "data": error_data},
     )
 
 
@@ -60,9 +52,9 @@ async def sqlalchemy_error_handler(request: Request, exc: SQLAlchemyError):
     if DEBUG_MODE:
         error_data = {
             "error_type": type(exc).__name__,
-            "error_detail": str(exc),    # 格式化异常信息为字符串，方便日志记录和调试
+            "error_detail": str(exc),  # 格式化异常信息为字符串，方便日志记录和调试
             "traceback": traceback.format_exc(),
-            "path": str(request.url)
+            "path": str(request.url),
         }
 
     return JSONResponse(
@@ -70,9 +62,10 @@ async def sqlalchemy_error_handler(request: Request, exc: SQLAlchemyError):
         content={
             "code": 500,
             "message": "数据库操作失败，请稍后重试",
-            "data": error_data
-        }
+            "data": error_data,
+        },
     )
+
 
 async def general_exception_handler(request: Request, exc: Exception):
     # 处理所有未捕获的异常
@@ -83,14 +76,10 @@ async def general_exception_handler(request: Request, exc: Exception):
             "error_detail": str(exc),
             # 格式化异常信息为字符串，方便日志记录和调试
             "traceback": traceback.format_exc(),
-            "path": str(request.url)
+            "path": str(request.url),
         }
 
     return JSONResponse(
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-        content={
-            "code": 500,
-            "message": "服务器内部错误",
-            "data": error_data
-        }
+        content={"code": 500, "message": "服务器内部错误", "data": error_data},
     )

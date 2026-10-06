@@ -10,14 +10,14 @@ REDIS_DB = 0
 
 # 创建redis的连接对象
 redis_client = redis.Redis(
-    protocol=2,   # force RESP2; Redis 5 does not support HELLO/RESP3
-    host = REDIS_HOST,  # Redis服务器主机地址
-    port = REDIS_PORT,   # Redis端口号
-    db = REDIS_DB,   # Redis 数据库编号，0~15
-    decode_responses=True,   # 是否将字节数据解码为字符串
-    socket_connect_timeout=5,   # 连接超时，单位秒
-    socket_timeout = 5,   # 读取超时，单位秒
-    retry_on_timeout = True  # 是否在超时重试
+    protocol=2,  # force RESP2; Redis 5 does not support HELLO/RESP3
+    host=REDIS_HOST,  # Redis服务器主机地址
+    port=REDIS_PORT,  # Redis端口号
+    db=REDIS_DB,  # Redis 数据库编号，0~15
+    decode_responses=True,  # 是否将字节数据解码为字符串
+    socket_connect_timeout=5,  # 连接超时，单位秒
+    socket_timeout=5,  # 读取超时，单位秒
+    retry_on_timeout=True,  # 是否在超时重试
 )
 
 
@@ -30,6 +30,7 @@ async def get_cache(key: str):
     except Exception as e:
         print(f"获取缓存失败: {e}")
         return None
+
 
 # 读取：列表或字典
 async def get_json_cache(key: str):
@@ -48,7 +49,7 @@ async def set_cache(key: str, value: Any, expire: int = 3600):
     try:
         if isinstance(value, (dict, list)):
             # 转字符串再存
-            value = json.dumps(value, ensure_ascii=False)   # 中文正常保存
+            value = json.dumps(value, ensure_ascii=False)  # 中文正常保存
         await redis_client.setex(key, expire, value)
         return True
     except Exception as e:
@@ -65,6 +66,7 @@ async def check_redis_health():
     except Exception as e:
         print(f"Redis 连通性检查失败: {e}")
         return False
+
 
 # 关闭 Redis 连接
 async def close_redis():

@@ -48,7 +48,6 @@ async def create_token(db: AsyncSession, user_id: int):
     return token
 
 
-
 async def authenticate_user(db: AsyncSession, username: str, password: str):
     user = await get_user_by_username(db, username)
     if not user:
@@ -56,6 +55,7 @@ async def authenticate_user(db: AsyncSession, username: str, password: str):
     if not security.verify_password(password, user.password):
         return None
     return user
+
 
 # 根据Token查询用户： 验证Token+查询用户
 async def get_user_by_token(db: AsyncSession, token: str):
@@ -76,10 +76,11 @@ async def update_user(db: AsyncSession, username: str, user_data: UserUpdateRequ
     # update(User).where(User.username == username).values(字段=值, 字段=值)
     # user_data 是一个Pydantic类型，得到字典 -> ** 解包
     # 没有设置值的不更新
-    query = update(User).where(User.username == username).values(**user_data.model_dump(
-        exclude_unset=True,
-        exclude_none=True
-    ))
+    query = (
+        update(User)
+        .where(User.username == username)
+        .values(**user_data.model_dump(exclude_unset=True, exclude_none=True))
+    )
     result = await db.execute(query)
     await db.commit()
 
@@ -91,8 +92,11 @@ async def update_user(db: AsyncSession, username: str, user_data: UserUpdateRequ
     updated_user = await get_user_by_username(db, username)
     return updated_user
 
+
 # 修改密码：验证旧密码 -> 新密码加密 -> 修改密码
-async def change_password(db: AsyncSession, user: User, old_password: str, new_password: str):
+async def change_password(
+    db: AsyncSession, user: User, old_password: str, new_password: str
+):
     if not security.verify_password(old_password, user.password):
         return False
 
