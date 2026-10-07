@@ -1,9 +1,12 @@
 # Python 学习之路
 
-个人 Python 学习练习仓库，按「周 / 天」组织，记录从基础语法到 LLM 应用实战的学习轨迹。仓库分两个阶段：
+个人 Python 学习练习仓库，按「周 / 天」组织，记录从基础语法到 LLM 应用、再到 Web 全栈的学习轨迹。仓库分三个阶段，另有一个综合实战项目：
 
 - `第一阶段---python基础与进阶`：Python 基础语法、面向对象、文件处理、数据分析（NumPy / Pandas / Matplotlib / Seaborn）、HTTP 与数据校验
 - `第二阶段--大模型`：LLM 应用与 Agent 开发（CrewAI / OpenAI Agents SDK / 手写 RAG / LangChain / LangGraph）
+- `第三阶段--FastAPI`：Web 后端入门，FastAPI 路由 / 参数校验 / 异常与中间件 / 依赖注入 / SQLAlchemy 异步 ORM
+- `AI-头条`：综合实战 —— FastAPI + MySQL + Redis 后端与 Vue 3 + Vite 前端的新闻资讯 App
+- `HTML+CSS`：前端基础，HTML 标签与语义化练习（笔记见 `html.txt`）
 
 每个目录对应一个学习阶段，包含练习代码、笔记和知识点总结。
 
@@ -12,6 +15,9 @@
 - Python 3.12.7
 - Week1 依赖标准库（`json`、`csv`、`os` 等）；Week2 引入第三方库（`numpy`、`pandas`、`matplotlib`、`seaborn`、`requests`、`pydantic`）
 - 第二阶段引入 `crewai`、`openai-agents`、`langchain`/`langgraph`、`pymilvus`、`openai` 等；LLM 后端统一用 DeepSeek（OpenAI 兼容端点），各模块在各自目录的 `.env` 里配置 `DEEPSEEK_API_KEY` / `DEEPSEEK_BASE_URL`
+- 第三阶段/AI-头条 后端引入 `fastapi` + `uvicorn`、`SQLAlchemy`（异步）+ `aiomysql`、`redis.asyncio`、`PyJWT` + `passlib[bcrypt]`（密码哈希）
+- AI-头条 前端需要 Node.js，依赖 Vue 3 + Vite + Pinia + vue-router + Vant + vue-i18n + axios（见 `AI-头条/toutiao_frontend/package.json`）
+- AI-头条 运行前需本机启动 MySQL（库名 `news_app`）与 Redis（默认 `localhost:6379`）
 - 使用 `.venv` 虚拟环境（已在 `.gitignore` 中忽略）
 
 ```bash
@@ -110,6 +116,35 @@ week2/
     └── documentation-helper-main/ LangChain + Tavily + Pinecone 文档助手 Streamlit 应用
 ```
 
+```
+第三阶段--FastAPI/
+├── main.py                     FastAPI 基础：路径/查询/请求体参数、异常、中间件、依赖注入
+├── ORM.py                      SQLAlchemy 2.0 异步 ORM：声明式基类、模型映射、建表、增删改查
+└── test_orm.py                 ORM 练习：Users 表定义与建表
+```
+
+```
+AI-头条/                          新闻资讯 App（前后端分离）
+├── toutiao_backend/              FastAPI 后端
+│   ├── main.py                   应用入口：CORS 中间件 + 注册路由 + 全局异常处理
+│   ├── config/                   db_conf.py（异步 MySQL 引擎/会话依赖）、cache_conf.py（Redis 连接与缓存读写）
+│   ├── models/                   数据库模型：users / news / favorite / history
+│   ├── schemas/                  Pydantic 请求响应模型（base / users / favorite / history）
+│   ├── crud/                     数据访问层：users / news / favorite / history / news_cache
+│   ├── cache/news_cache.py       新闻缓存层（Redis + 数据库回源）
+│   ├── routers/                  路由：news（/api/news）、users（/api/user）、favorite、history
+│   ├── utils/                    security（bcrypt 哈希）、auth（Bearer Token 鉴权）、response、exception
+│   └── test_main.http            接口调试用例
+└── toutiao_frontend/             Vue 3 前端
+    ├── src/views/                Login / Register / Home / NewsDetail / History / Favorite /
+    │                             Category / AIChat / My / Profile / Settings
+    ├── src/components/           NewsItem（新闻卡片）、TabBar（底部导航）
+    ├── src/store/                Pinia：user / news / favorite / history / theme / language
+    ├── src/i18n/                 中英文语言包（zh-CN / en-US）
+    ├── src/config/api.js         后端地址与 AI 问答参数
+    └── vite.config.js            /api 代理到 http://127.0.0.1:8000
+```
+
 ## 各阶段要点
 
 | 阶段 | 内容 |
@@ -160,6 +195,25 @@ week2/
 | :--- | :--- |
 | **Agentic RAG（LangGraph）** | 路由 → 检索 → 文档评分 → 决策（生成 / 联网搜索）→ 幻觉检测 → 答案评分，含 `chains` / `nodes` / `tests` |
 | **Documentation Helper** | LangChain + Tavily 爬取 + Pinecone 向量库 + Streamlit 前端的文档助手（外部课程项目） |
+
+### 第三阶段要点（FastAPI）
+
+| 模块 | 内容 |
+| :--- | :--- |
+| **main.py** | 路径参数 `Path` / 查询参数 `Query` / 请求体 `BaseModel`、响应类型（`HTMLResponse` / `FileResponse`）、`HTTPException` 异常处理、中间件执行顺序（自下而上）、`Depends` 依赖注入 |
+| **ORM.py** | SQLAlchemy 2.0 异步：`create_async_engine` + `async_sessionmaker`、`DeclarativeBase` 声明式基类、`Mapped` / `mapped_column` 类型映射、`insert_default` 与 `onupdate` 自动时间戳、启动时建表 |
+| **test_orm.py** | 练习：定义 `Users` 表（id / username / password）并建表 |
+
+### AI-头条 要点
+
+| 模块 | 内容 |
+| :--- | :--- |
+| **后端架构** | 分层：`routers`（路由）→ `crud`（数据访问）→ `models`（表模型）；`schemas` 管请求响应结构，`config` 管连接，`utils` 放通用能力 |
+| **数据库** | MySQL + `SQLAlchemy` 异步引擎，`get_db` 依赖注入负责会话开关与事务提交/回滚 |
+| **缓存** | Redis 缓存新闻分类与列表，`cache/news_cache.py` 做「缓存优先 + 数据库回源」；`set_cache` 支持字符串与 JSON，带过期时间 |
+| **认证** | `passlib` + `bcrypt` 哈希密码，登录发放 Token，`utils/auth.py` 的 `get_current_user` 从 `Authorization: Bearer` 解析并校验 |
+| **前端** | Vue 3 + Vite + Pinia（持久化）+ vue-router，移动端组件库 Vant，`vue-i18n` 中英双语，主题切换 |
+| **AI 问答** | `AIChat.vue` 前端直连 DeepSeek 接口，用 `marked` + `dompurify` 渲染 Markdown 回答 |
 
 ### Day 1-2 练习题
 
@@ -242,3 +296,47 @@ python "第一阶段---python基础与进阶/week2/pydantic/pydantic-practice.py
 - 条件边驱动自适应：检索不全相关就转联网搜索，生成不落地就重试，答案跑题就转联网。
 
 `第二阶段--大模型/实战/documentation-helper-main/` 则是一个完整的外部课程项目：LangChain + Tavily 爬取 + Pinecone 向量库 + Streamlit 前端的文档问答助手。
+
+---
+
+## 综合实战：AI-头条（前后端分离）
+
+`AI-头条/` 是一个完整的新闻资讯 App，把第三阶段的 FastAPI 知识落地成有分层、有缓存、有鉴权的真实后端，再配一个 Vue 3 移动端前端。
+
+### 功能
+
+- 新闻：分类浏览、分页列表（返回 `hasMore`）、详情页
+- 收藏与浏览历史：增 / 查 / 删 / 清空
+- 用户：注册、登录、改密、个人信息，Token 鉴权
+- AI 问答：前端直连 DeepSeek，Markdown 渲染回答
+- 体验：中英双语（vue-i18n）、明暗主题、Pinia 持久化
+
+### 运行
+
+```bash
+# 前置：本机启动 MySQL（库名 news_app）与 Redis（localhost:6379）
+
+# 1. 后端
+cd "AI-头条/toutiao_backend"
+uvicorn main:app --reload          # http://127.0.0.1:8000
+
+# 2. 前端（新开一个终端）
+cd "AI-头条/toutiao_frontend"
+npm install
+npm run dev                        # Vite 通过 /api 代理到后端，无需额外跨域配置
+```
+
+### 分层结构
+
+```
+routers/  → 定义接口、参数校验、调用 crud
+crud/     → 封装数据库操作（news / users / favorite / history）
+models/   → SQLAlchemy 表模型
+schemas/  → Pydantic 请求 / 响应模型
+config/   → MySQL 引擎与 Redis 客户端
+utils/    → 认证、密码哈希、统一响应、全局异常处理
+```
+
+> 主要接口：`GET /api/news/categories`（分类）、`GET /api/news/list`（分页列表）、`POST /api/user/register`（注册）等，其余见 `test_main.http`。
+
+> ⚠️ **安全提示**：`toutiao_frontend/src/config/api.js` 中硬编码了 DeepSeek API Key 并已提交到仓库，建议改为从环境变量（`import.meta.env.VITE_*`）读取，并轮换该 Key。
